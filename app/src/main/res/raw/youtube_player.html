@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <script src="https://www.youtube.com/iframe_api"></script>
+    </head>
+
+    <body>
+        <div id="player"></div>
+    </body>
+
+    <script type="text/javascript">
+
+        var YouTubePlayerBridge = window.YouTubePlayerBridge;
+    	var player;
+
+    	function onYouTubeIframeAPIReady() {
+
+            YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
+
+    		player = new YT.Player('player', {
+                height: '100%',
+    			width: '100%',
+                events: {
+    				onReady: function(event) { YouTubePlayerBridge.sendReady() }
+    			},
+    			playerVars: <<injectedPlayerVars>>
+    		});
+    	}
+        // JAVA to WEB functions
+        function cueVideo(videoId, startSeconds) {
+            player.cueVideoById(videoId, startSeconds);
+        }
+    </script>
+</html>
